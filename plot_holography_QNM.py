@@ -88,27 +88,29 @@ def load_qnm(file_qnm=FILE_QNM):
 
 
 def plot_GR_vs_omega_tau_pi(outputpath="./paper_figures/"):
-    """Fig. 2: Re/Im of tau_pi G_R/(4 eta/3) for holography, RTA, free streaming and MIS."""
+    """Fig. 2: Re/Im of tau_pi [2 G^{eta eta,eta eta} - (2/3) G^{tt,eta eta}]/(4 eta/3) for holography, RTA, free streaming and MIS."""
     scale = 0.8
     xs, re_gr, im_gr = np.loadtxt(TABLE_GR, unpack=True)
 
     # RTA: (i x + (Ck/Ct) x^2)/(1 - i x) with (Ck, Ct) = (0, 5); free streaming: -Ct/5
     Ck, Ct = 0, 5
-    curves = {
-        'Holography': re_gr + 1j * im_gr,
-        'MIS': (1j * xs + xs**2 / (2 * np.pi) / TAU_PI) / (1 - 1j * xs),   # kappa/(2 eta) = 1/(2 pi T)
-        'free-streaming': np.full_like(xs, -Ct / 5, dtype=complex),
-        'RTA': (1j * xs + (Ck / Ct) * xs**2) / (1 - 1j * xs),
-    }
+    # (style key, legend label, curve), in plotting/legend order
+    curves = [
+        ('RTA', r'RTA, MIS $\kappa=0$', (1j * xs + (Ck / Ct) * xs**2) / (1 - 1j * xs)),
+        ('Holography', 'Holography', re_gr + 1j * im_gr),
+        ('MIS', r'MIS $\kappa\neq0$',
+         (1j * xs + xs**2 / (2 * np.pi) / TAU_PI) / (1 - 1j * xs)),   # kappa/(2 eta) = 1/(2 pi T)
+        ('free-streaming', 'free-streaming', np.full_like(xs, -Ct / 5, dtype=complex)),
+    ]
 
     fig, axs = plt.subplots(1, 2, figsize=(scale * 2.25 * FRAME_WIDTH, scale * FRAME_WIDTH))
     for ax, part, name in zip(axs, (np.real, np.imag), ("Re", "Im")):
         ax.hlines(0, xs[0], xs[-1], 'k', lw=0.5)
-        for label, G in curves.items():
-            ax.plot(xs, part(G), **THEORY[label], label=label)
+        for key, label, G in curves:
+            ax.plot(xs, part(G), **THEORY[key], label=label)
         ax.set_xlim(xs[0], xs[-1])
-        ax.set_xlabel(r'$\omega\tau_\pi$')
-        ax.set_ylabel(r'$\tau_\pi\,\mathrm{' + name + r'}[G^{\eta\eta,\eta\eta}_R]/(4\eta/3)$')
+        ax.set_xlabel(r'$\omega_0\tau_\pi$')
+        ax.set_ylabel(r'$\tau_\pi\,\mathrm{' + name + r'}[2G^{\eta\eta,\eta\eta}-\frac{2}{3}G^{tt,\eta\eta}]/(4\eta/3)$')
     axs[1].legend(fontsize=7, loc='upper left')
 
     fig.tight_layout()
