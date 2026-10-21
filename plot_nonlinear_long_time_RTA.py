@@ -50,7 +50,7 @@ plt.rcParams.update({
 })                                                                              
 print(colors)
 COLORS = colors
-LABELS = ['Navier-Stokes', 'Müller-Israel-Stewart', 'Free-Streaming', 'Linear MIS*', 'Yang-Mills', 'RTA', 'Scalar', 'rBRSSS']
+LABELS = ['Navier-Stokes', 'Müller-Israel-Stewart', 'Free-Streaming', 'Linear MIS*', 'Yang-Mills EKT', 'RTA', 'Scalar', 'rBRSSS']
 STYLE = ['-', '--', ':', '-.', '-.',':', ':', '-']
 # Global Plot Settings
 FRAME_WIDTH = 2.5

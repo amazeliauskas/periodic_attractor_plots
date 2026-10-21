@@ -44,7 +44,7 @@ plt.rcParams.update({
 })                                                                              
 print(colors)
 COLORS = colors
-LABELS = ['Navier-Stokes', 'Müller-Israel-Stewart', 'free-streaming', 'linear MIS', 'Yang-Mills', 'RTA', 'Scalar']
+LABELS = ['Navier-Stokes', 'Müller-Israel-Stewart', 'free-streaming', 'linear MIS', 'Yang-Mills EKT', 'RTA', 'Scalar']
 STYLE = ['-', '-', '--', ':', '-.',':', ':'] 
 
 # Global Plot Settings
@@ -140,7 +140,7 @@ def plot_phase_space_comparison(A, load_external_data=False, outputpath="./paper
                 T_ekt = phys.findT(e_ekt)
                 pi_norm_ekt = pi_ekt / phys.pressure(e_ekt)
                 xNS_ekt = - (16/15) * (5 * ETA_S / T_ekt) * A * omega * np.cos(omega * t_ekt) / (1 + A*np.sin(omega*t_ekt))
-                ax.plot(xNS_ekt / yfac, pi_norm_ekt / yfac, color='red', label='EKT')
+                ax.plot(xNS_ekt / yfac, pi_norm_ekt / yfac, color='red', label=LABELS[4])
 
         # 3. Non-linear MIS
         y0_MIS = [phys.Eeq(T0), 0]

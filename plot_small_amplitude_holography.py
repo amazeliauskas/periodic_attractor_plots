@@ -45,7 +45,7 @@ plt.rcParams.update({
 })                                                                              
 print(colors)
 COLORS = colors
-LABELS = ['Navier-Stokes', 'Müller-Israel-Stewart', 'MIS kappa=0', 'linear MIS', 'Yang-Mills', 'RTA', 'Scalar', 'Holography']
+LABELS = ['Navier-Stokes', 'Müller-Israel-Stewart', 'MIS kappa=0', 'linear MIS', 'Yang-Mills EKT', 'RTA', 'Scalar', 'Holography']
 STYLE = ['-', '-', ':', ':', '-.',':', ':', '--'] 
 
 # Global Plot Settings
